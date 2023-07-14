@@ -14,4 +14,4 @@ from .models import Course, Category
 
 def index(request: WSGIRequest) -> HttpResponse:
     courses = Course.objects.all()
-    return HttpResponse(courses)
+    return render(request, 'courses.html', {'courses': courses})

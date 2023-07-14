@@ -241,3 +241,7 @@ admin.site.register(models.Course)
 ---
 
 ## First Views
+
+```emmet
+table>(thead>tr>th*5)(tbody>tr>td*5)
+```
