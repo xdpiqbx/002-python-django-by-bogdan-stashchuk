@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, Http404
 from django.core.handlers.wsgi import WSGIRequest
 from .models import Course, Category
 
@@ -15,3 +15,16 @@ from .models import Course, Category
 def index(request: WSGIRequest) -> HttpResponse:
     courses = Course.objects.all()
     return render(request, 'courses.html', {'courses': courses})
+
+def single_course(request: WSGIRequest, course_id: int) -> HttpResponse:
+    # path('<int:course_id>', views.single_course, name='single_course'),
+    # # Option 1
+    # try:
+    #     course = Course.objects.get(pk=course_id)
+    #     return render(request, 'single_course.html', {'course': course})
+    # except Course.DoesNotExist:
+    #     raise Http404()
+
+    # # Option 2
+    course = get_object_or_404(Course, pk=course_id)
+    return render(request, 'single_course.html', {'course': course})

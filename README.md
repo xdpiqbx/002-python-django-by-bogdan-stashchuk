@@ -242,6 +242,17 @@ admin.site.register(models.Course)
 
 ## First Views
 
+```python
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.core.handlers.wsgi import WSGIRequest
+from .models import Course, Category
+def index(request: WSGIRequest) -> HttpResponse:
+    courses = Course.objects.all()
+    return render(request, 'courses.html', {'courses': courses})
+```
+
 ```emmet
 table>(thead>tr>th*5)(tbody>tr>td*5)
 ```
+

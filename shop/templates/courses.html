@@ -16,7 +16,7 @@
     <tbody>
         {% for course in courses %}
             <tr>
-                <td>{{course.title}}</td>
+                <td><a href="{% url 'shop:single_course' course.id %}">{{course.title}}</a></td>
                 <td>{{course.category}}</td>
                 <td>{{course.price}}</td>
                 <td>{{course.students_qty}}</td>
