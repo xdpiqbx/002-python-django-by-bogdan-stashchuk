@@ -321,4 +321,4 @@ TEMPLATES = [
 - `pipenv shell`
 - Create application `python manage.py startapp api`
 - Add to `INSTALLED_APPS = [..., 'api.apps.ApiConfig',]`
-- Create models
+- [Create models](./api/models.py)
