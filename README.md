@@ -24,6 +24,8 @@
 - Register `Shop` in `settings.py` `INSTALLED_APPS = [..., 'shop.apps.ShopConfig']`
 - Register models in `shop/admin.py`
 - Create Views
+- `pipenv install django-tastypie`
+- Create application `python manage.py startapp api`
 
 ---
 
@@ -310,3 +312,13 @@ TEMPLATES = [
     },
 ]
 ```
+
+---
+
+## Create REST
+
+- [`pipenv install django-tastypie`](https://pypi.org/project/django-tastypie/)
+- `pipenv shell`
+- Create application `python manage.py startapp api`
+- Add to `INSTALLED_APPS = [..., 'api.apps.ApiConfig',]`
+- Create models
