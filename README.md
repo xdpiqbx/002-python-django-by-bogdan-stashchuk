@@ -1,5 +1,32 @@
 # 002-python-django-by-bogdan-stashchuk
 
+---
+
+## Short. How to start project
+
+### Setup environment
+
+- `.venv`
+- `pipenv install Django`
+- `django-admin startproject config .`
+- `.env`
+    1. pipenv install django-environ
+    2. create `.env` file in the same folder with `settings.py`
+- Сonnect database (PostgreSQL)
+    1. `pipenv install psycopg2`
+    2. config in `settings.py` `DATABASES = { ... }`
+- Makemigrations `python manage.py makemigrations`
+- Migrate `python manage.py migrate`
+- Create superuser`python manage.py createsuperuser`
+- Create application `python manage.py startapp shop`
+- Crete models for DB
+- `Makemigrations` and `Migrate`
+- Register `Shop` in `settings.py` `INSTALLED_APPS = [..., 'shop.apps.ShopConfig']`
+- Register models in `shop/admin.py`
+- Create Views
+
+---
+
 `pipenv --venv` - path to .venv `C:\Python\Django\001-project\.venv`
 
 `pipenv shell`
@@ -7,13 +34,15 @@
 ---
 
 ## MVC -> MTV
+
 - Model -> Model - Logic (work with data instances)
 - View -> Template - HTML
 - Controller -> View - Buttons Forms
 
 ---
 
-# WSGI & ASGI
+## WSGI & ASGI
+
 - WSGI - web server gateway interface (интерфейс взаимодействия между сервером и python)
 - ASGI - asynchronous server gateway interface (disabled by default)
 
@@ -51,14 +80,18 @@ wheel      0.40.0
 ---
 
 ## Work with .env variables in Django
+
 1. pipenv install django-environ
 2. create `.env` file in the same folder with `settings.py`
+
 ```text
 DB_ENGINE=django.db.backends.postgresql
 DB_USER=john
 DB_PASSWORD=john@#687
 ```
+
 3. use vars from .env
+
 ```python
 import environ
 env = environ.Env()
@@ -67,6 +100,7 @@ print(env.str('DB_ENGINE'))
 print(env.str('DB_USER'))
 print(env.str('DB_PASSWORD'))
 ```
+
 ---
 
 ## PostgreSQL
@@ -110,6 +144,7 @@ DATABASES = {
     }
 }
 ```
+
 ```python
 import environ
 env = environ.Env()
@@ -176,11 +211,13 @@ class Course(models.Model):
 `python manage.py makemigrations`
 
 Next server start will show you next message:
+
 ```text
 You have 1 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): shop.
 Run 'python manage.py migrate' to apply them.
 ```
-### `python manage.py migrate`
+
+## `python manage.py migrate`
 
 ---
 
@@ -195,6 +232,7 @@ INSTALLED_APPS = [
 ```
 
 ---
+
 ## `python manage.py shell`
 
 Working with DB objects with `manage.py` shell
@@ -256,3 +294,19 @@ def index(request: WSGIRequest) -> HttpResponse:
 table>(thead>tr>th*5)(tbody>tr>td*5)
 ```
 
+---
+
+## Change templates destination
+
+now template in the root of project
+
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR.joinpath('templates')],
+        'APP_DIRS': True,
+        'OPTIONS': { ... },
+    },
+]
+```

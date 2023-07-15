@@ -12,9 +12,11 @@ from .models import Course, Category
 #     courses = Course.objects.all()
 #     return HttpResponse('<br/>'.join([str(course) for course in courses]))
 
+
 def index(request: WSGIRequest) -> HttpResponse:
     courses = Course.objects.all()
-    return render(request, 'courses.html', {'courses': courses})
+    return render(request, 'shop/courses.html', {'courses': courses})
+
 
 def single_course(request: WSGIRequest, course_id: int) -> HttpResponse:
     # path('<int:course_id>', views.single_course, name='single_course'),
@@ -27,4 +29,4 @@ def single_course(request: WSGIRequest, course_id: int) -> HttpResponse:
 
     # # Option 2
     course = get_object_or_404(Course, pk=course_id)
-    return render(request, 'single_course.html', {'course': course})
+    return render(request, 'shop/single_course.html', {'course': course})
