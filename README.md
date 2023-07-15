@@ -6,7 +6,12 @@
 
 ### Setup environment
 
-- `.venv`
+- `pip list`
+- `pip install pipenv` - one time globally
+- Create `.venv` in Django project folder
+
+### Setup Django project
+
 - `pipenv install Django`
 - `django-admin startproject config .`
 - `.env`
@@ -322,3 +327,52 @@ TEMPLATES = [
 - Create application `python manage.py startapp api`
 - Add to `INSTALLED_APPS = [..., 'api.apps.ApiConfig',]`
 - [Create models](./api/models.py)
+- Add url patterns in `base` -> [`urls.py`](./base/urls.py)
+
+```python
+from api.models import CategoryResource, CourseResource
+from tastypie.api import Api
+
+api = Api(api_name='v1')
+category_resource = CategoryResource()
+course_resource = CourseResource()
+api.register(category_resource)
+api.register(course_resource)
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('shop/', include('shop.urls')),
+    path('api/', include(api.urls)),
+]
+```
+
+- `http://localhost:9000/api/v1/`
+
+## REST Auth
+
+- [`authentication.py`](./api/authentication.py)
+  - create `CustomAuthentication` if you need
+- in models create instances of:
+    1. `authentication = CustomAuthentication()`
+    2. `authorization = Authorization()`
+
+## Create `API_KEY`
+
+- Add `tastypie` to `INSTALLED_APPS`
+
+```python
+INSTALLED_APPS = [
+    'api.apps.ApiConfig',
+    'tastypie' # And now -> You have 2 unapplied migration(s).
+]
+```
+
+- Apply migrations `python manage.py migrate`
+- Save an API key via the web interface for specific user
+
+## `POST` `DELETE` Authorization
+
+- For action set header `Authorization: ApiKey username:api_key`
+- For `POST` (create record to db)
+    1. `def hydrate(self, bundle): ...` how to send data to server
+    2. `def dehydrate(self, bundle): ...` its how to send data to client
