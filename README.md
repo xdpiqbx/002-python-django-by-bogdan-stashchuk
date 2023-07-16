@@ -9,6 +9,7 @@
 - `pip list`
 - `pip install pipenv` - one time globally
 - Create `.venv` in Django project folder
+- `pipenv shell`
 
 ### Setup Django project
 
@@ -35,8 +36,6 @@
 ---
 
 `pipenv --venv` - path to .venv `C:\Python\Django\001-project\.venv`
-
-`pipenv shell`
 
 ---
 
